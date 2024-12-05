@@ -42,7 +42,7 @@ class _GopherHuntingGameState extends State<GopherHuntingGame> {
 
     // Reset the game and players
     _game.resetGame();
-    // Optionally, initialize bots here if needed
+    _game.startBotTurn();
   }
 
   // Stop the game

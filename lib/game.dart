@@ -19,14 +19,12 @@ class Game {
 
   Game(this.updateUI) {
     _initializeGame();
-    currentPlayer = Bot1("Bot1", this);
+
   }
 
   void _initializeGame() {
     gopherPosition = Random().nextInt(gridSize * gridSize);
-    bot1 = Bot1('Bot 1', this);
-    bot2 = Bot2('Bot 2', this);
-    turnCounter = 0;
+    currentPlayer = Bot1("Bot1", this);
     isGameOver = false;
     bot1Guesses.clear();
     bot2Guesses.clear();
@@ -42,6 +40,7 @@ class Game {
     if (bot1Guesses.contains(gopherPosition) ||
         bot2Guesses.contains(gopherPosition)) {
       isGameOver = true;
+      _initializeGame();
 
     }
 
@@ -57,7 +56,6 @@ class Game {
   void resetGame() {
     _initializeGame();
     currentPlayer.reset();
-    currentPlayer = Bot1("Bot1", this);
     updateUI();
   }
 
@@ -109,23 +107,5 @@ bool isAdjacentToGopher(int index) {
   // Check if adjacent
   return (row - gopherRow).abs() <= 1 && (col - gopherCol).abs() <= 1;
 }
-// Helper function to get a guess that's adjacent to the given position
-  List<int> getAdjacentPositions(int index) {
-    int row = index ~/ gridSize;
-    int col = index % gridSize;
 
-    List<int> adjacentPositions = [];
-
-    for (int r = row - 1; r <= row + 1; r++) {
-      for (int c = col - 1; c <= col + 1; c++) {
-        if (r >= 0 && r < gridSize && c >= 0 && c < gridSize) {
-          int adjacentIndex = r * gridSize + c;
-          // Avoid guessing the same position again
-          adjacentPositions.add(adjacentIndex);
-        }
-      }
-    }
-
-    return adjacentPositions;
-  }
 }
